@@ -5,12 +5,15 @@ AI Content & Growth Platform Backend
 
 from fastapi import FastAPI, WebSocket, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse, FileResponse
 import logging
 import asyncio
 from datetime import datetime
 from typing import Optional, Dict, Any, List
 import json
+import os
+from pathlib import Path
 
 from config import settings, validate_settings
 from database import init_db
@@ -40,6 +43,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve frontend static files
+frontend_dist = Path(__file__).parent.parent / "frontend" / "dist"
+if frontend_dist.exists():
+    app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
+    logger.info(f"📱 Serving frontend from {frontend_dist}")
 
 # Initialize services
 orchestrator = TaskOrchestrator()
