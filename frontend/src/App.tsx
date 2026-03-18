@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
-// Use relative API URL for production, localhost for development
-const API_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost' 
-  ? 'http://localhost:8000' 
-  : '';
+// API URL configuration for different environments
+const API_URL = 
+  typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+    ? 'http://localhost:8000'  // Local development
+    : import.meta.env.VITE_API_URL || '';  // Production (Vercel uses VITE_API_URL, or relative if not set)
 
 export default function App() {
   const [topic, setTopic] = useState('');
