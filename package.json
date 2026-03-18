@@ -1,0 +1,13 @@
+{
+  "name": "ai-content-growth-platform",
+  "version": "1.0.0",
+  "description": "AI Content Growth Platform",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "build": "cd frontend && npm run build",
+    "dev": "cd frontend && npm run dev"
+  }
+}
