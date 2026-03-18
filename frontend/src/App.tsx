@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -17,7 +17,6 @@ export default function App() {
   const [posting, setPosting] = useState(false);
   const [postingSchedule, setPostingSchedule] = useState<any>(null);
   const [trendingTopics, setTrendingTopics] = useState<any[]>([]);
-  const [loadingTrending, setLoadingTrending] = useState(true);
 
   // Load trending topics on component mount
   useEffect(() => {
@@ -29,8 +28,6 @@ export default function App() {
         }
       } catch (err) {
         console.error('Failed to fetch trending topics:', err);
-      } finally {
-        setLoadingTrending(false);
       }
     };
 
