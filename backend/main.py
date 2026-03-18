@@ -46,9 +46,13 @@ app.add_middleware(
 
 # Serve frontend static files
 frontend_dist = Path(__file__).parent.parent / "frontend" / "dist"
+logger.info(f"🔍 Looking for frontend at: {frontend_dist}")
+logger.info(f"📁 Directory exists: {frontend_dist.exists()}")
 if frontend_dist.exists():
     app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
-    logger.info(f"📱 Serving frontend from {frontend_dist}")
+    logger.info(f"📱 Successfully serving frontend from {frontend_dist}")
+else:
+    logger.warning(f"⚠️  Frontend directory not found at {frontend_dist}. Only serving API.")
 
 # Initialize services
 orchestrator = TaskOrchestrator()
